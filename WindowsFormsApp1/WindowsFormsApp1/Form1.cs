@@ -34,6 +34,17 @@ namespace WindowsFormsApp1
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            for (i = c; i < Login.Length; i++)
+            {
+                if (sha1.SHA1(txtUser.Text) == Login[i])
+                {
+                    MessageBox.Show("User da ton tai");
+                    txtUser.Clear();
+                    txtPass.Clear();
+
+                }
+            }
+
             if (txtUser.Text != "" && txtPass.Text != "")
             {
                 for (i = r; i < Login.Length; i++)
@@ -45,8 +56,7 @@ namespace WindowsFormsApp1
                         Login[i] = sha1.SHA1(txtUser.Text);
                         Login[i + 1] = sha1.SHA1(txtPass.Text);
                         MessageBox.Show("Saved Password");
-                        txtUser.Clear();
-                        txtPass.Clear();
+                     
                         r = r + 2;
                         break;
 
@@ -59,18 +69,12 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            else if (sha1.SHA1(txtUser.Text) == Login[i])
-            {
-                MessageBox.Show("User da ton tai");
-                txtUser.Clear();
-                txtPass.Clear();
-
-            }
-
+           
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+
             for (int i = c; i < Login.Length; i++)
             {
 
@@ -78,22 +82,29 @@ namespace WindowsFormsApp1
                 {
                     MessageBox.Show("Accepted login");
                     c = 0;
-                    txtUser.Clear();
-                    txtPass.Clear();
-                    break;
-                    c = c + 2;
-                }
-              
-                else
-                {
-                    MessageBox.Show("Accepted failed");
-                    
-                    txtUser.Clear();
-                    txtPass.Clear();
+
+
+                   
+
                     break;
                 }
 
+                c = c + 2;
+                if (sha1.SHA1(txtUser.Text) != Login[i] && sha1.SHA1(txtPass.Text) != Login[i + 1])
+                {
+                    MessageBox.Show("Accepted fail");
+
+                    c = c;
+                    break;
+                   
+
+                }
+              
             }
+
+            
+         
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -110,8 +121,10 @@ namespace WindowsFormsApp1
                     txtPass.Clear();
                     break;
                 }
-              
-
+                else
+                {
+                    MessageBox.Show("Failed");
+                }
             }
         }
     }
