@@ -51,13 +51,20 @@ namespace WindowsFormsApp1
                         break;
 
                     }
-                    else
+                    else if (sha1.SHA1(txtUser.Text) == Login[i])
                     {
                         MessageBox.Show("User da ton tai");
                         break;
 
                     }
                 }
+            }
+            else if (sha1.SHA1(txtUser.Text) == Login[i])
+            {
+                MessageBox.Show("User da ton tai");
+                txtUser.Clear();
+                txtPass.Clear();
+
             }
 
         }
@@ -74,8 +81,36 @@ namespace WindowsFormsApp1
                     txtUser.Clear();
                     txtPass.Clear();
                     break;
+                    c = c + 2;
                 }
-                c = c + 2;
+              
+                else
+                {
+                    MessageBox.Show("Accepted failed");
+                    
+                    txtUser.Clear();
+                    txtPass.Clear();
+                    break;
+                }
+
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = c; i < Login.Length; i++)
+            {
+
+                if (sha1.SHA1(txtUser.Text) == Login[i] )
+                {
+                  Login[i + 1] = sha1.SHA1(txtPass.Text)  ;
+                    MessageBox.Show("Changed Pass.");
+                    c = 0;
+                    txtUser.Clear();
+                    txtPass.Clear();
+                    break;
+                }
+              
 
             }
         }
