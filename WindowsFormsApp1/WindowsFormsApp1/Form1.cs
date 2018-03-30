@@ -74,45 +74,74 @@ namespace WindowsFormsApp1
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
-            for (int i = c; i < Login.Length; i++)
+            try
             {
-
-                if (sha1.SHA1(txtUser.Text) == Login[i] && sha1.SHA1(txtPass.Text) == Login[i + 1])
+                for (int c = i; i < Login.Length; i++)
                 {
-                    MessageBox.Show("Accepted login");
-                    c = 0;
 
+                    if (Login[i]  != sha1.SHA1(txtUser.Text) && Login[i + 1] != sha1.SHA1(txtPass.Text) )
+                    {
+                        MessageBox.Show("Accepted fail");
+                        break;
+
+                    }
+                    else if (sha1.SHA1(txtUser.Text) == Login[i] && sha1.SHA1(txtPass.Text) == Login[i + 1])
+                    {
+                        MessageBox.Show("Accepted login");
+                        c = 0;
+
+                        txtUser.Clear();
+                        txtPass.Clear();
 
                    
+                        break;
+                    }
 
-                    break;
+                    c = c + 2;
+
+
                 }
-
-                c = c + 2;
-                if (sha1.SHA1(txtUser.Text) != Login[i] && sha1.SHA1(txtPass.Text) != Login[i + 1])
+                for (int i = c; i < Login.Length; i++)
                 {
-                    MessageBox.Show("Accepted fail");
+                    
+                     if (sha1.SHA1(txtUser.Text) == Login[i] && sha1.SHA1(txtPass.Text) == Login[i + 1])
+                    {
+                        MessageBox.Show("Accepted login");
+                        c = 0;
 
-                    c = c;
-                    break;
-                   
+                        txtUser.Clear();
+                        txtPass.Clear();
+
+                     
+                        break;
+                    }
+
+                    c = c + 2;
+
+
 
                 }
-              
+
+            }
+            catch
+            {
+                
             }
 
-            
          
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = c; i < Login.Length; i++)
+            for (int c = i; i < Login.Length; i++)
             {
-
-                if (sha1.SHA1(txtUser.Text) == Login[i] )
+                if ( Login[i] != sha1.SHA1(txtUser.Text))
+                {
+                    MessageBox.Show("User Invalid.");
+                    break;
+                }
+                else if (sha1.SHA1(txtUser.Text) == Login[i] )
                 {
                   Login[i + 1] = sha1.SHA1(txtPass.Text)  ;
                     MessageBox.Show("Changed Pass.");
@@ -121,10 +150,7 @@ namespace WindowsFormsApp1
                     txtPass.Clear();
                     break;
                 }
-                else
-                {
-                    MessageBox.Show("Failed");
-                }
+                c = c + 2;
             }
         }
     }
